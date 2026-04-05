@@ -78,4 +78,4 @@ You will need the following API keys to enable the full feature set:
 
 ---
 
-*Built with ❤️ by the Deskora Team*
+
