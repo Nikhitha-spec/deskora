@@ -29,45 +29,50 @@ Deskora is a production-ready, AI-driven customer support platform designed to t
 
 ---
 
-## 📋 Prerequisites
+## 📋 Prerequisites & Environment Variables
 
-Before you begin, ensure you have the following installed and configured:
+Make sure you have the following API credentials ready. You will need to place these in a `.env` file within the `/backend` folder.
 
-### ⚙️ Environments
-- **Node.js**: v18.0.0 or higher
-- **npm**: v9.0.0 or higher
-- **MongoDB**: A running instance (Local MongoDB or MongoDB Atlas)
-
-### 🔑 API Credentials
-You will need the following API keys to enable the full feature set:
-- **Google Gemini API**: For AI classification, translation, and expert responses.
-- **Cloudinary**: 
-  - `CLOUDINARY_CLOUD_NAME`
-  - `CLOUDINARY_API_KEY`
-  - `CLOUDINARY_API_SECRET`
-- **JWT Secret**: A secure string for token-based authentication.
+- **PORT**: `5000`
+- **MONGO_URI**: Your MongoDB Atlas connection string.
+- **JWT_SECRET**: A secure, random string for authentication.
+- **GEMINI_API_KEY**: API key from Google AI Studio.
+- **CLOUDINARY_CLOUD_NAME**: From your Cloudinary dashboard.
+- **CLOUDINARY_API_KEY**: From your Cloudinary dashboard.
+- **CLOUDINARY_API_SECRET**: From your Cloudinary dashboard.
 
 ---
 
-## 🛠️ Installation & Setup
+## 🛠️ Local Installation & Setup
 
 1. **Clone the Repository**
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/Nikhitha-spec/deskora.git
    cd deskora
    ```
 
 2. **Backend Configuration**
    - Navigate to `/backend`
-   - Create a `.env` file with the keys mentioned in Prerequisites.
+   - Create your `.env` file and populate it with the secrets above.
    - Run `npm install`
-   - Seed the database: `node seed.js` (Includes initial 25+ articles)
+   - **Seed the Database**: Run `node seed.js` to create the default test accounts and 25+ KB articles.
    - Start the server: `node server.js`
 
 3. **Frontend Configuration**
    - Navigate to `/frontend`
    - Run `npm install`
-   - Start the dev server: `npm run dev`
+   - Start the development server: `npm run dev`
+
+---
+
+## 🚀 Deployment (Vercel)
+
+This application is configured out-of-the-box for a **multi-service deployment** on Vercel via the `experimentalServices` architecture (see `vercel.json`).
+
+1. Connect your GitHub repository to Vercel.
+2. In the Vercel Project **Settings -> General**, change the **Framework Preset** to **"Services"** so Vercel builds the frontend and backend jointly.
+3. Crucially, go to **Settings -> Environment Variables** in Vercel and **paste all the variables from your local `.env` file**. Do not skip this, or the backend will crash!
+4. **Redeploy** the application from your Deployments tab to finalize.
 
 ---
 
@@ -90,4 +95,4 @@ After running the seed script (`node seed.js`), the following test accounts are 
 
 ---
 
-
+*Built with ❤️ by the Deskora Team*
