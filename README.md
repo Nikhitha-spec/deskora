@@ -71,6 +71,18 @@ You will need the following API keys to enable the full feature set:
 
 ---
 
+## 🧪 Test Accounts
+
+After running the seed script (`node seed.js`), the following test accounts are available to explore different roles on the platform. All accounts share the same password: **`password123`**.
+
+- **Admin Account**: `admin@deskora.com`
+- **Billing Agent**: `billing@deskora.com`
+- **Technical Agent**: `tech@deskora.com`
+- **General Agent**: `general@deskora.com`
+- **Standard User**: `user@example.com`
+
+---
+
 ## 🛡️ Role-Based Access
 - **Admin**: Full platform control, dashboard analytics, and user management.
 - **Agent**: Handle assigned tickets, use the AI Co-pilot, and update ticket statuses.
