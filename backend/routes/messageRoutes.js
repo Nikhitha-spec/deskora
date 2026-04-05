@@ -1,3 +1,4 @@
+import express from 'express';
 import { addMessage, getMessages, suggestReply, uploadMessage } from '../controllers/messageController.js';
 import { protect, agentOrAdmin } from '../middleware/authMiddleware.js';
 import { upload } from '../config/cloudinary.js';
