@@ -20,7 +20,8 @@ const Register = () => {
             await register(name, email, password);
             navigate('/tickets');
         } catch (error) {
-            setError('Registration failed. Email might already be in use.');
+            const errorMsg = error.response?.data?.message || error.message || 'Registration failed.';
+            setError(errorMsg);
         }
     };
 
