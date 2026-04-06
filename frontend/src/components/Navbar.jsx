@@ -56,7 +56,15 @@ const Navbar = () => {
 
                 <div 
                     onClick={toggleTheme} 
-                    style={{ cursor: 'pointer', padding: '8px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'grid', placeItems: 'center' }}
+                    style={{ 
+                        cursor: 'pointer', 
+                        padding: '8px', 
+                        borderRadius: '12px', 
+                        background: mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(99, 102, 241, 0.1)', 
+                        display: 'grid', 
+                        placeItems: 'center',
+                        color: mode === 'dark' ? 'white' : 'var(--primary-color)'
+                    }}
                 >
                     {mode === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                 </div>
