@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import API from '../api';
 import { useAuth } from '../context/AuthContext';
-import { User, MapPin, Briefcase, Mail, Info, Save } from 'lucide-react';
+import { User, MapPin, Briefcase, Mail, Info, Save, Phone, Building } from 'lucide-react';
 
 const Profile = () => {
     const { user } = useAuth();
@@ -10,7 +10,10 @@ const Profile = () => {
         email: '',
         gender: '',
         location: '',
-        bio: ''
+        bio: '',
+        phoneNumber: '',
+        company: '',
+        jobTitle: ''
     });
     const [loading, setLoading] = useState(true);
     const [updating, setUpdating] = useState(false);
@@ -79,6 +82,16 @@ const Profile = () => {
                                 <MapPin size={16} opacity={0.6} /> {profile.location}
                             </div>
                         )}
+                        {profile.phoneNumber && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}>
+                                <Phone size={16} opacity={0.6} /> {profile.phoneNumber}
+                            </div>
+                        )}
+                        {profile.company && (
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}>
+                                <Building size={16} opacity={0.6} /> {profile.company}
+                            </div>
+                        )}
                         {profile.role === 'Agent' && (
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}>
                                 <Briefcase size={16} opacity={0.6} /> Specialty: {profile.assignedCategory}
@@ -126,9 +139,26 @@ const Profile = () => {
                             </div>
                         )}
 
-                        <div>
-                            <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Location</label>
-                            <input name="location" value={profile.location} onChange={handleChange} placeholder="e.g. New York, USA" />
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                            <div>
+                                <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Location</label>
+                                <input name="location" value={profile.location} onChange={handleChange} placeholder="e.g. New York, USA" />
+                            </div>
+                            <div>
+                                <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Phone Number</label>
+                                <input name="phoneNumber" value={profile.phoneNumber} onChange={handleChange} placeholder="+1 234 567 890" />
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                            <div>
+                                <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Company</label>
+                                <input name="company" value={profile.company} onChange={handleChange} placeholder="Company Name" />
+                            </div>
+                            <div>
+                                <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Job Title</label>
+                                <input name="jobTitle" value={profile.jobTitle} onChange={handleChange} placeholder="e.g. IT Manager / Support Specialist" />
+                            </div>
                         </div>
 
                         <div>

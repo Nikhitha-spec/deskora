@@ -71,13 +71,15 @@ const Dashboard = () => {
         color: item._id === 'positive' ? '#10b981' : item._id === 'neutral' ? '#6366f1' : '#ef4444'
     })) || [{ name: 'Waiting', value: 0, color: '#4b5563' }];
 
-    const { user } = useAuth();
+    const { user, mode } = useAuth();
     const isUser = user?.role === 'User';
+    const chartTextColor = mode === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(30, 41, 59, 0.7)';
+    const gridColor = mode === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
 
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
-                <div style={{ background: 'rgba(15, 23, 42, 0.95)', border: '1px solid var(--glass-border)', padding: '12px', borderRadius: '14px', color: 'white', backdropFilter: 'blur(10px)', boxShadow: '0 10px 20px rgba(0,0,0,0.3)' }}>
+                <div style={{ background: mode === 'dark' ? 'rgba(15, 23, 42, 0.95)' : 'white', border: '1px solid var(--glass-border)', padding: '12px', borderRadius: '14px', color: mode === 'dark' ? 'white' : 'var(--text-light)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 20px rgba(0,0,0,0.2)' }}>
                     <p style={{ margin: 0, fontWeight: 700, marginBottom: '4px' }}>{label || payload[0].name}</p>
                     <p style={{ margin: 0, color: payload[0].fill || 'var(--primary-color)', fontSize: '0.9rem' }}>{`${payload[0].value} Tickets`}</p>
                 </div>
@@ -111,33 +113,33 @@ const Dashboard = () => {
             
             {/* Stat Cards */}
             <div className="dashboard-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '40px' }}>
-                <div className="glass card-hover" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="glass card-hover stat-card" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ opacity: 0.6, fontSize: '0.9rem' }}>{isUser ? 'My Total Tickets' : 'Total Volume'}</div>
+                        <div style={{ opacity: 0.7, fontSize: '0.9rem' }}>{isUser ? 'My Total Tickets' : 'Total Volume'}</div>
                         <BarChart3 size={20} color="#6366f1" />
                     </div>
-                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--primary-color)' }}>{stats.totalTickets}</div>
+                    <div className="dashboard-card-value" style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--primary-color)' }}>{stats.totalTickets}</div>
                 </div>
-                <div className="glass card-hover" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="glass card-hover stat-card" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ opacity: 0.6, fontSize: '0.9rem' }}>{isUser ? 'Resolved Requests' : 'Resolution Rate'}</div>
+                        <div style={{ opacity: 0.7, fontSize: '0.9rem' }}>{isUser ? 'Resolved Requests' : 'Resolution Rate'}</div>
                         <TrendingUp size={20} color="#34d399" />
                     </div>
-                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#34d399' }}>{isUser ? stats.resolvedTickets : `${stats.resolutionRate}%`}</div>
+                    <div className="dashboard-card-value" style={{ fontSize: '2.2rem', fontWeight: 700, color: '#34d399' }}>{isUser ? stats.resolvedTickets : `${stats.resolutionRate}%`}</div>
                 </div>
-                <div className="glass card-hover" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="glass card-hover stat-card" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ opacity: 0.6, fontSize: '0.9rem' }}>{isUser ? 'In Progress' : 'Active Tickets'}</div>
+                        <div style={{ opacity: 0.7, fontSize: '0.9rem' }}>{isUser ? 'In Progress' : 'Active Tickets'}</div>
                         <Clock size={20} color="#fbbf24" />
                     </div>
-                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#fbbf24' }}>{stats.inProgressTickets}</div>
+                    <div className="dashboard-card-value" style={{ fontSize: '2.2rem', fontWeight: 700, color: '#fbbf24' }}>{stats.inProgressTickets}</div>
                 </div>
-                <div className="glass card-hover" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="glass card-hover stat-card" style={{ padding: '25px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ opacity: 0.6, fontSize: '0.9rem' }}>{isUser ? 'Mood Analysis' : 'Avg. Sentiment'}</div>
+                        <div style={{ opacity: 0.7, fontSize: '0.9rem' }}>{isUser ? 'Mood Analysis' : 'Avg. Sentiment'}</div>
                         <Sparkles size={20} color="#a855f7" />
                     </div>
-                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#a855f7' }}>
+                    <div className="dashboard-card-value" style={{ fontSize: '2.2rem', fontWeight: 700, color: '#a855f7' }}>
                         {stats.sentimentDistribution?.length > 0 ? (isUser ? 'Cooperative' : 'Optimal') : '--'}
                     </div>
                 </div>
@@ -158,9 +160,9 @@ const Dashboard = () => {
                                         <stop offset="95%" stopColor="var(--primary-color)" stopOpacity={0}/>
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: 'rgba(255,255,255,0.5)', fontSize: 12}} />
-                                <YAxis axisLine={false} tickLine={false} tick={{fill: 'rgba(255,255,255,0.5)', fontSize: 12}} />
+                                <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
+                                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: chartTextColor, fontSize: 12}} />
+                                <YAxis axisLine={false} tickLine={false} tick={{fill: chartTextColor, fontSize: 12}} />
                                 <Tooltip content={<CustomTooltip />} />
                                 <Area type="monotone" dataKey="tickets" stroke="var(--primary-color)" strokeWidth={3} fillOpacity={1} fill="url(#colorTickets)" />
                             </AreaChart>
@@ -200,9 +202,9 @@ const Dashboard = () => {
                     <div style={{ flex: 1 }}>
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={categoryData} layout="vertical">
-                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                                <CartesianGrid strokeDasharray="3 3" stroke={gridColor} horizontal={false} />
                                 <XAxis type="number" hide />
-                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: 'white', fontSize: 12}} width={80} />
+                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: chartTextColor, fontSize: 12}} width={80} />
                                 <Tooltip content={<CustomTooltip />} />
                                 <Bar dataKey="value" fill="var(--primary-color)" radius={[0, 10, 10, 0]} barSize={25} />
                             </BarChart>
@@ -222,7 +224,7 @@ const Dashboard = () => {
                                     <Tooltip content={<CustomTooltip />} />
                                 </PieChart>
                             </ResponsiveContainer>
-                            <p style={{ textAlign: 'center', fontSize: '0.8rem', opacity: 0.6, marginTop: '5px' }}>Priority Level</p>
+                            <p style={{ textAlign: 'center', fontSize: '0.8rem', opacity: 0.7, marginTop: '5px' }}>Priority Distribution</p>
                         </div>
                         <div style={{ height: '250px' }}>
                             <ResponsiveContainer width="100%" height="100%">
@@ -233,15 +235,15 @@ const Dashboard = () => {
                                     <Tooltip content={<CustomTooltip />} />
                                 </PieChart>
                             </ResponsiveContainer>
-                            <p style={{ textAlign: 'center', fontSize: '0.8rem', opacity: 0.6, marginTop: '5px' }}>Message Tone</p>
+                            <p style={{ textAlign: 'center', fontSize: '0.8rem', opacity: 0.7, marginTop: '5px' }}>Sentiment Analysis</p>
                         </div>
                     </div>
                     
-                    <div style={{ background: 'rgba(99, 102, 241, 0.05)', padding: '15px', borderRadius: '14px', marginTop: '10px', border: '1px solid rgba(99, 102, 241, 0.1)' }}>
+                    <div style={{ background: mode === 'dark' ? 'rgba(99, 102, 241, 0.05)' : 'rgba(99, 102, 241, 0.08)', padding: '15px', borderRadius: '14px', marginTop: '10px', border: '1px solid rgba(99, 102, 241, 0.1)' }}>
                         <h4 style={{ fontSize: '0.9rem', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <Sparkles size={14} color="var(--primary-color)" /> AI {isUser ? 'Assistant' : 'Insight'}
                         </h4>
-                        <p style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+                        <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>
                             {isUser 
                                 ? "We've detected you're mostly requesting technical help. Check the Help Center for faster self-service solutions!"
                                 : "Ticket volume has increased in the 'Technical' category this week. We recommend updating your Knowledge Base to address common issues."}
@@ -263,7 +265,7 @@ const Dashboard = () => {
                                 alignItems: 'center', 
                                 padding: '15px 20px', 
                                 borderRadius: '15px', 
-                                background: 'rgba(255,255,255,0.03)',
+                                background: mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
                                 border: '1px solid var(--glass-border)',
                                 animation: `fadeIn 0.4s ease-out ${idx * 0.1}s forwards`,
                                 opacity: 0
@@ -282,7 +284,7 @@ const Dashboard = () => {
                                     </div>
                                     <div>
                                         <div style={{ fontWeight: 600, fontSize: '1rem' }}>{ticket.title}</div>
-                                        <div style={{ fontSize: '0.8rem', opacity: 0.5, textTransform: 'capitalize' }}>
+                                        <div style={{ fontSize: '0.8rem', opacity: 0.7, textTransform: 'capitalize' }}>
                                             {ticket.category} • {new Date(ticket.createdAt).toLocaleDateString()}
                                         </div>
                                     </div>
@@ -291,7 +293,7 @@ const Dashboard = () => {
                                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                                     <div style={{ textAlign: 'right' }}>
                                         <div style={{ fontSize: '0.85rem', fontWeight: 600 }}>{ticket.assignedTo?.name || 'Unassigned'}</div>
-                                        <div style={{ fontSize: '0.75rem', opacity: 0.5, textTransform: 'uppercase' }}>
+                                        <div style={{ fontSize: '0.75rem', opacity: 0.6, textTransform: 'uppercase' }}>
                                             {ticket.assignedTo?.assignedCategory ? `${ticket.assignedTo.assignedCategory} Specialist` : 'System Queue'}
                                         </div>
                                     </div>
@@ -312,7 +314,7 @@ const Dashboard = () => {
                             </div>
                         ))
                     ) : (
-                        <div style={{ textAlign: 'center', padding: '40px', opacity: 0.4 }}>
+                        <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
                             No active tickets found.
                         </div>
                     )}

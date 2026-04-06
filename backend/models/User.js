@@ -29,6 +29,15 @@ const userSchema = new mongoose.Schema({
     bio: {
         type: String,
     },
+    phoneNumber: {
+        type: String,
+    },
+    company: {
+        type: String,
+    },
+    jobTitle: {
+        type: String,
+    },
     assignedCategory: { // For Agents routing
         type: String,
         enum: ['billing', 'technical', 'general', null],

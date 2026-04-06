@@ -69,6 +69,9 @@ export const getUserProfile = async (req, res) => {
             gender: user.gender,
             location: user.location,
             bio: user.bio,
+            phoneNumber: user.phoneNumber,
+            company: user.company,
+            jobTitle: user.jobTitle,
             assignedCategory: user.assignedCategory
         });
     } else {
@@ -88,6 +91,9 @@ export const updateUserProfile = async (req, res) => {
         user.gender = req.body.gender || user.gender;
         user.location = req.body.location || user.location;
         user.bio = req.body.bio || user.bio;
+        user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+        user.company = req.body.company || user.company;
+        user.jobTitle = req.body.jobTitle || user.jobTitle;
         
         // Only allow updating category if they are an agent or admin
         if (req.user.role === 'Agent' || req.user.role === 'Admin') {
@@ -108,6 +114,9 @@ export const updateUserProfile = async (req, res) => {
             gender: updatedUser.gender,
             location: updatedUser.location,
             bio: updatedUser.bio,
+            phoneNumber: updatedUser.phoneNumber,
+            company: updatedUser.company,
+            jobTitle: updatedUser.jobTitle,
             assignedCategory: updatedUser.assignedCategory,
             token: generateToken(updatedUser._id),
         });
