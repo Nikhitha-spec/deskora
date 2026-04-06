@@ -1,4 +1,4 @@
-# 🌌 Deskora: The Intelligent Support Ecosystem
+# 🌌 Deskora
 
 Deskora is a production-ready, AI-driven customer support platform designed to transform traditional ticketing into a high-end, real-time communication experience. Powered by the MERN stack and Google Gemini AI, Deskora automates routing, synthesizes knowledge, and provides agents with a data-driven command center.
 
