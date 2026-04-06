@@ -88,6 +88,12 @@ export const updateUserProfile = async (req, res) => {
         user.gender = req.body.gender || user.gender;
         user.location = req.body.location || user.location;
         user.bio = req.body.bio || user.bio;
+        
+        // Only allow updating category if they are an agent or admin
+        if (req.user.role === 'Agent' || req.user.role === 'Admin') {
+            user.assignedCategory = req.body.assignedCategory || user.assignedCategory;
+        }
+
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -102,6 +108,7 @@ export const updateUserProfile = async (req, res) => {
             gender: updatedUser.gender,
             location: updatedUser.location,
             bio: updatedUser.bio,
+            assignedCategory: updatedUser.assignedCategory,
             token: generateToken(updatedUser._id),
         });
     } else {

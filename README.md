@@ -88,8 +88,11 @@ After running the seed script (`node seed.js`), the following test accounts are 
 
 ---
 
+---
+
 ## 🛡️ Role-Based Access
 - **Admin**: Full platform control, dashboard analytics, and user management.
 - **Agent**: Handle assigned tickets, use the AI Co-pilot, and update ticket statuses.
 - **User**: Search the Knowledge Base, "Ask AI", create tickets, and chat with agents.
 
+---

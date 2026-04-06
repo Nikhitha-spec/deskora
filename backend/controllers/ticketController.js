@@ -14,25 +14,40 @@ export const createTicket = async (req, res) => {
 
     try {
         const aiAnalysis = await classifyTicketContext(title);
+        const { category, priority: aiPriority, sentiment } = aiAnalysis;
 
-        // Find best agent for this category
-        const agents = await User.find({ role: 'Agent', assignedCategory: aiAnalysis.category });
+        // Intelligent Routing Logic: Find agent in category with least active workload
         let assignedTo = null;
-        if (agents.length > 0) {
-            assignedTo = agents[Math.floor(Math.random() * agents.length)]._id;
-        } else {
-            const fallbackAgents = await User.find({ role: 'Agent' });
-            if (fallbackAgents.length > 0) {
-                assignedTo = fallbackAgents[Math.floor(Math.random() * fallbackAgents.length)]._id;
-            }
+        const potentialAgents = await User.find({ 
+            role: 'Agent', 
+            assignedCategory: category 
+        });
+
+        const targetAgents = potentialAgents.length > 0 
+            ? potentialAgents 
+            : await User.find({ role: 'Agent' });
+
+        if (targetAgents.length > 0) {
+            // Find agent with lowest active ticket count
+            const agentWorkloads = await Promise.all(targetAgents.map(async (agent) => {
+                const count = await Ticket.countDocuments({ 
+                    assignedTo: agent._id, 
+                    status: { $in: ['open', 'in-progress'] } 
+                });
+                return { agentId: agent._id, count };
+            }));
+
+            // Sort by count and pick the lowest
+            agentWorkloads.sort((a, b) => a.count - b.count);
+            assignedTo = agentWorkloads[0].agentId;
         }
 
         const ticket = new Ticket({
             user: req.user._id,
             title,
-            category: aiAnalysis.category,
-            priority: priority || aiAnalysis.priority, // Use user priority if provided
-            sentiment: aiAnalysis.sentiment,
+            category,
+            priority: priority || aiPriority,
+            sentiment,
             assignedTo
         });
 

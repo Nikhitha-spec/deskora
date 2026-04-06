@@ -41,11 +41,9 @@ const Navbar = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                {(user.role === 'Admin' || user.role === 'Agent') && (
-                    <Link to="/dashboard" className="nav-link" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'inherit', textDecoration: 'none' }}>
-                        <LayoutDashboard size={18} /> <span>Dashboard</span>
-                    </Link>
-                )}
+                <Link to="/dashboard" className="nav-link" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'inherit', textDecoration: 'none' }}>
+                    <LayoutDashboard size={18} /> <span>Dashboard</span>
+                </Link>
                 <Link to="/tickets" className="nav-link" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'inherit', textDecoration: 'none' }}>
                     <Ticket size={18} /> <span>Tickets</span>
                 </Link>

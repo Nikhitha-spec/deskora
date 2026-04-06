@@ -109,6 +109,23 @@ const Profile = () => {
                             </div>
                         </div>
 
+                        { (profile.role === 'Agent' || profile.role === 'Admin') && (
+                            <div style={{ marginBottom: '15px' }}>
+                                <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Assigned Specialty (Routing)</label>
+                                <select 
+                                    name="assignedCategory" 
+                                    value={profile.assignedCategory || ''} 
+                                    onChange={handleChange}
+                                    style={{ border: '1px solid var(--primary-color)', background: 'rgba(99, 102, 241, 0.05)' }}
+                                >
+                                    <option value="">No Specialty (General Fallback)</option>
+                                    <option value="billing">Billing Specialist</option>
+                                    <option value="technical">Technical Engineer</option>
+                                    <option value="general">General Support</option>
+                                </select>
+                            </div>
+                        )}
+
                         <div>
                             <label style={{ fontSize: '0.9rem', opacity: 0.7, marginBottom: '5px', display: 'block' }}>Location</label>
                             <input name="location" value={profile.location} onChange={handleChange} placeholder="e.g. New York, USA" />
