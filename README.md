@@ -1,3 +1,12 @@
+---
+title: Deskora
+emoji: 🎧
+colorFrom: indigo
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
 # Deskora: Intelligent Customer Support Ecosystem
 
 Deskora is a sophisticated, AI-driven customer support platform designed to transition traditional ticketing systems into high-performance, real-time communication hubs. Built using the MERN stack and integrated with Google Gemini AI, Deskora automates complex support workflows, provides deep analytical insights, and offers a premium user experience through modern design principles.
